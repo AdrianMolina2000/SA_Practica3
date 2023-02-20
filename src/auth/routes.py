@@ -37,6 +37,23 @@ def registry():
             password = hash_str(request.json['password'])
             fecha_nac = request.json['fecha_nac']
             cel = request.json['cel']
+
+            if name != "":
+                    return jsonify({'status': 400, 'descripcion': 'El nombre no puede estar vacio'})
+            if lastname != "":
+                    return jsonify({'status': 400, 'descripcion': 'El apellido no puede estar vacio'})
+            if carne != "":
+                    return jsonify({'status': 400, 'descripcion': 'El carne no puede estar vacio'})
+            if cui != "":
+                    return jsonify({'status': 400, 'descripcion': 'El cui no puede estar vacio'})
+            if email != "":
+                    return jsonify({'status': 400, 'descripcion': 'El email no puede estar vacio'})
+            if password != "":
+                    return jsonify({'status': 400, 'descripcion': 'La contraseña no puede estar vacio'})
+            if fecha_nac != "":
+                    return jsonify({'status': 400, 'descripcion': 'La fecha de nacimiento no puede estar vacio'})
+            if cel != "":
+                    return jsonify({'status': 400, 'descripcion': 'El numero de telefono no puede estar vacio'})
         except:
              return jsonify({'status': 400, 'descripcion': 'Datos incompletos para registrarse'})
         retorno = {"status": 200}
