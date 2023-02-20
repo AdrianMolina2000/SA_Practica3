@@ -6,6 +6,7 @@ from perfil.routes import perfil
 from comunidad.routes import comunidad
 from pensum.routes import pensum
 from crudCurso.routes import crudCurso
+from horariosSemestre.routes import horariosSemestre
 
 def create_app():
     app = Flask(__name__)
@@ -16,6 +17,7 @@ def create_app():
     app.register_blueprint(comunidad)
     app.register_blueprint(pensum)
     app.register_blueprint(crudCurso)
+    app.register_blueprint(horariosSemestre)
 
     return app
     

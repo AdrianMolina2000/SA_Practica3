@@ -23,7 +23,7 @@ def setcurso():
             if len(pre_course) > 0:
                 for course in pre_course:
                     if course <= 0:
-                        return jsonify({'status': 400, 'descripcion': 'El codigo del pre-curso no existe'})
+                        return jsonify({'status': 400, 'descripcion': f'El codigo {course} del pre-curso no existe'})
             if optional < 0 or optional > 1:
                 return jsonify(({'status': 400, 'description': 'Valor de opcional no valido'}))
 
