@@ -4,6 +4,7 @@ from flask_cors import CORS
 from auth.routes import auth
 from perfil.routes import perfil
 from comunidad.routes import comunidad
+from pensum.routes import pensum
 
 def create_app():
     app = Flask(__name__)
@@ -12,6 +13,7 @@ def create_app():
     app.register_blueprint(auth)
     app.register_blueprint(perfil)
     app.register_blueprint(comunidad)
+    app.register_blueprint(pensum)
 
     return app
     

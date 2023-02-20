@@ -22,3 +22,24 @@ def login():
         return jsonify(retorno)
     else:
         return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+
+
+
+@auth.route('/registry', methods=['POST', 'GET', 'PUT', 'DELETE'])
+def registry():
+    if request.method == 'POST':
+        try:
+            name = request.json['name']
+            lastname = request.json['lastname']
+            carne = request.json['carne']
+            cui = request.json['cui']
+            email = request.json['email']
+            password = hash_str(request.json['password'])
+            fecha_nac = request.json['fecha_nac']
+            cel = request.json['cel']
+        except:
+             return jsonify({'status': 400, 'descripcion': 'Datos incompletos para registrarse'})
+        retorno = {"status": 200}
+        return jsonify(retorno)
+    else:
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
