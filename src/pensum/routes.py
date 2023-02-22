@@ -12,24 +12,27 @@ def send_pensum_user():
             tokenDatos = jwt.decode(token, "secret", algorithms=["HS256"])
             tokenDatos.pop("exp",None)
             try:
-                carne = request.json['carne']
+                carne = int(tokenDatos['carne'])
                 code_course = request.json['code_course']
-
-                if carne != tokenDatos['id']:
-                    return jsonify({'status': 400, 'descripcion': 'El carne no coincide con el usuario logeado'})
-                if code_course == "":
-                    return jsonify({'status': 400, 'descripcion': 'El codigo del curso no puede estar vacio'})
-
-
-                return jsonify({"status" : 200})
             except:
-                return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+                 return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para agregar curso'}),400
+            
+            #VALIDAR QUE LOS DATOS NO VENGAN VACIOS
+            if code_course == "":
+                return jsonify({'status': 400, 'descripcion': 'El codigo del curso no puede estar vacio'}),400
+
+            #VALIDACIONES DATOS QUEMADOS
+            if code_course == "0666":
+                return jsonify({'status': 400, 'descripcion': 'El curso ya se encuentra asociado al usuario'}),400
+
+
+            return jsonify({"descripcion" : "se ha asignado correctamente el curso", "status" : 200}),200
         except jwt.ExpiredSignatureError:
-            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400})
+            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400}),400
         except jwt.InvalidTokenError:
-            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400})
+            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400}),400
     else:
-        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'}),500
 
 
 @pensum.route('/getPensumUser', methods=['POST', 'GET', 'PUT', 'DELETE'])
@@ -39,25 +42,19 @@ def get_pensum_user():
             token = request.headers.get('Token')
             tokenDatos = jwt.decode(token, "secret", algorithms=["HS256"])
             tokenDatos.pop("exp",None)
-            try:
-                carne = request.json['carne']
-
-                if carne != tokenDatos['id']:
-                    return jsonify({'status': 400, 'descripcion': 'El usuario no ha sido encontrado'})
-                
-                return jsonify({"status" : 200, 
-                                "courses" : 
-                                [
-                                    {"code_course" : "0780", "name_course" : "Software Avanzado"},
-                                    {"code_course" : "0972", "name_course" : "Inteligencia Artificial 1"}
-                                ]
-                            })
-
-            except:
-                return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+            
+          
+            return jsonify(
+                {"status" : 200, 
+                    "courses" : 
+                    [
+                        {"code_course" : "0780", "name_course" : "Software Avanzado"},
+                        {"code_course" : "0972", "name_course" : "Inteligencia Artificial 1"}
+                    ]
+                }),200
         except jwt.ExpiredSignatureError:
-            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400})
+            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400}),400
         except jwt.InvalidTokenError:
-            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400})
+            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400}),400
     else:
-        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'}),500

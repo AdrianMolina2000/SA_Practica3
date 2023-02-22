@@ -8,8 +8,8 @@ def hash_str(str):
     return hashlib.sha256(str.encode()).hexdigest()
 
 
-calendarioEvento = Blueprint('calendariocalendarioEvento', __name__,
-                      url_prefix='/calendariocalendarioEvento')
+calendarioEvento = Blueprint('calendarioEvento', __name__,
+                      url_prefix='/calendarioEvento')
 
 
 @calendarioEvento.route('/getAllEvent', methods=['POST', 'GET', 'PUT', 'DELETE'])
@@ -35,15 +35,15 @@ def getEvent():
                         ]
                     }
 
-                )
+                ),200
             except:
-                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para obtener calendarioEventos'})
+                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para obtener calendarioEventos'}),400
         except jwt.ExpiredSignatureError:
-            return jsonify({"descripcion": "JWT ya expiro", "status": 400})
+            return jsonify({"descripcion": "JWT ya expiro", "status": 400}),400
         except jwt.InvalidTokenError:
-            return jsonify({"descripcion": "Error en token enviado", "status": 400})
+            return jsonify({"descripcion": "Error en token enviado", "status": 400}),400
     else:
-        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'}),500
 
 @calendarioEvento.route('/sendEvent', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def setEvent():
@@ -52,34 +52,31 @@ def setEvent():
         try:
             tokenDatos = jwt.decode(token, "secret", algorithms=["HS256"])
             tokenDatos.pop("exp",None)
+
             
             try:
-                carne = request.json['carne']
-                title = request.json['tittle']
+                title = request.json['title']
                 msg = request.json['msg']
                 fecha = request.json['fecha']
 
-                if carne == "":
-                    return jsonify({'status': 400, 'descripcion': 'El carne no puede estar vacio'})
                 if title == "":
-                    return jsonify({'status': 400, 'descripcion': 'El titulo no puede estar vacio'})
+                    return jsonify({'status': 400, 'descripcion': 'El titulo no puede estar vacio'}),400
                 if msg == "":
-                    return jsonify({'status': 400, 'descripcion': 'El mensaje no puede estar vacio'})
+                    return jsonify({'status': 400, 'descripcion': 'El mensaje no puede estar vacio'}),400
                 if fecha == "":
-                    return jsonify({'status': 400, 'descripcion': 'La fecha no puede estar vacia'})
+                    return jsonify({'status': 400, 'descripcion': 'La fecha no puede estar vacia'}),400
 
-                if carne != "201902934":
-                    return jsonify({'status': 400, 'descripcion': 'El carnet no existe'})
+                
 
-                return jsonify({"status" : 200})
+                return jsonify({"status" : 200, "descripcion": "Se agrego el evento correctamente"}),200
             except:
-                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para agregar calendarioEvento'})
+                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para agregar calendarioEvento'}),400
         except jwt.ExpiredSignatureError:
-            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400})
+            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400}),400
         except jwt.InvalidTokenError:
-            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400})
+            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400}),400
     else:
-        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'}),400
 
 @calendarioEvento.route('/gestionarEvent', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def gestionarEvent():
@@ -90,33 +87,37 @@ def gestionarEvent():
             tokenDatos.pop("exp",None)
             
             try:
-                id_calendarioEvento = request.json['id_calendarioEvento']
-                id_usuario = request.json['id_usuario']
-                opcion = request.json['opcion']
-
-                if id_calendarioEvento == "":
-                    return jsonify({'status': 400, 'descripcion': 'El id del calendarioEvento no puede estar vacio'})
-                if id_usuario == "":
-                    return jsonify({'status': 400, 'descripcion': 'El id del usuario no puede estar vacio'})
+                id_evento = int(request.json['id_evento'])
+                carne = int(request.json['carne'])
+                opcion = int(request.json['opcion'])
+                if id_evento == "":
+                    return jsonify({'status': 400, 'descripcion': 'El id del evento no puede estar vacio'}),400
+                if carne == "":
+                    return jsonify({'status': 400, 'descripcion': 'El carne del usuario no puede estar vacio'}),400
                 if opcion == "":
-                    return jsonify({'status': 400, 'descripcion': 'La opcion no puede estar vacia'})
+                    return jsonify({'status': 400, 'descripcion': 'La opcion no puede estar vacia'}),400
 
-                if id_usuario != "1":
-                    return jsonify({'status': 400, 'descripcion': 'El carnet no existe'})
-                if id_calendarioEvento != "0":
-                    return jsonify({'status': 400, 'descripcion': 'El calendarioEvento no existe'})
-                if opcion != "0" and opcion != "1":
-                    return jsonify({'status': 400, 'descripcion': 'La opcion no es valida'})
+                if carne != 201902934:
+                    return jsonify({'status': 400, 'descripcion': 'El carnet no existe'}),400
+                if id_evento != 1:
+                    return jsonify({'status': 400, 'descripcion': 'El id del evento no existe'}),400
+                if opcion != 0 and opcion != 1:
+                    return jsonify({'status': 400, 'descripcion': 'La opcion no es valida'}),400
                 
-                return jsonify({"status" : 200})
+                if opcion == 0:
+                    asig = "Asignado al evento"
+                elif opcion == 1:
+                    asig = "Desasignado del evento"
+
+                return jsonify({"status" : 200, "descripcion" : asig}),200
             except:
-                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para agregar calendarioEvento'})
+                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para agregar calendarioEvento'}),400
         except jwt.ExpiredSignatureError:
-            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400})
+            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400}),400
         except jwt.InvalidTokenError:
-            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400})
+            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400}),400
     else:
-        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'}),500
     
 @calendarioEvento.route('/deleteEvent', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def deleteEvent():
@@ -127,19 +128,19 @@ def deleteEvent():
             tokenDatos.pop("exp",None)
             
             try:
-                id_calendarioEvento = request.json['id_calendarioEvento']
+                id_evento = int(request.json['id_evento'])
 
-                if id_calendarioEvento == "":
-                    return jsonify({'status': 400, 'descripcion': 'El id_calendarioEvento no puede estar vacio'})
-                if id_calendarioEvento != "0":
-                    return jsonify({'status': 400, 'descripcion': 'El calendarioEvento no existe'})
+                if id_evento == "":
+                    return jsonify({'status': 400, 'descripcion': 'El id del evento no puede estar vacio'}),400
+                if id_evento != 1:
+                    return jsonify({'status': 400, 'descripcion': 'El calendarioEvento no existe'}),400
 
-                return jsonify({"status" : 200})
+                return jsonify({"status" : 200, "descripcion" : "evento eliminado correctamente"}),200
             except:
-                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para eliminar calendarioEvento'})
+                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para eliminar calendarioEvento'}),400
         except jwt.ExpiredSignatureError:
-            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400})
+            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400}),400
         except jwt.InvalidTokenError:
-            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400})
+            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400}),400
     else:
-        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'}),500
