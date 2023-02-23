@@ -17,29 +17,29 @@ def setPost():
             tokenDatos.pop("exp",None)
             
             try:
-                carne = request.json['carne']
+                carne =  tokenDatos['carne']
                 title = request.json['title']
                 msg = request.json['msg']
                 tag = request.json['tag']
 
-                if carne != tokenDatos['id']:
-                    return jsonify({'status': 400, 'descripcion': 'El carne no coincide con el usuario logeado'})
                 if title == "":
-                    return jsonify({'status': 400, 'descripcion': 'El titulo no puede estar vacio'})
+                    return jsonify({'status': 400, 'descripcion': 'El titulo no puede estar vacio'}),400
                 if msg == "":
-                    return jsonify({'status': 400, 'descripcion': 'El mensaje no puede estar vacio'})
+                    return jsonify({'status': 400, 'descripcion': 'El mensaje no puede estar vacio'}),400
                 if tag == "":
-                    return jsonify({'status': 400, 'descripcion': 'El tag no puede estar vacio'})
+                    return jsonify({'status': 400, 'descripcion': 'El tag no puede estar vacio'}),400
 
-                return jsonify({"status" : 200})
+                return jsonify({"status" : 200,  "descripcion" : "Se ha creado el post correctamente"}),200
             except:
-                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para agregar curso'})
+                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para agregar curso'}),400
         except jwt.ExpiredSignatureError:
-            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400})
+            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400}),400
         except jwt.InvalidTokenError:
-            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400})
+            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400}),400
     else:
-        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'}),500
+
+
 
 @comunidad.route('/getPost', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def getPost():
@@ -52,7 +52,7 @@ def getPost():
             try:
                 tag = request.json['tag']
                 if tag == "":
-                    return jsonify({'status': 400, 'descripcion': 'El tag no puede estar vacio'})
+                    return jsonify({'status': 400, 'descripcion': 'El tag no puede estar vacio'}),400
                 return jsonify({"status" : 200, 
                                 "posts" : 
                                 [
@@ -66,10 +66,10 @@ def getPost():
                                     {"carne" : "201903850", "title" : "Como iniciar en redes1", "msg" : "descargar gns3", "tag" : "Redes 1"},
                                     {"carne" : "201903850", "title" : "Como iniciar en redes2", "msg" : "descargar gns3", "tag" : "Redes 2"},
                                 ]
-                            })
+                            }),200
         except jwt.ExpiredSignatureError:
-            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400})
+            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400}),400
         except jwt.InvalidTokenError:
-            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400})
+            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400}),400
     else:
-        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'}),500

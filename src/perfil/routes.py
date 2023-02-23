@@ -16,7 +16,7 @@ def updateUser():
             tokenDatos.pop("exp",None)
             
             try:
-                carne = request.json['carne']
+                carne = tokenDatos['carne']
                 name = request.json['name']
                 lastname = request.json['lastname']
                 email = request.json['email']
@@ -24,31 +24,29 @@ def updateUser():
                 cel = request.json['cel']
                 password = hash_str(request.json['password'])
                 
-                if carne != tokenDatos['id']:
-                    return jsonify({'status': 400, 'descripcion': 'El carne no coincide con el usuario logeado'})
                 if name == "":
-                    return jsonify({'status': 400, 'descripcion': 'El nombre no puede estar vacio'})
+                    return jsonify({'status': 400, 'descripcion': 'El nombre no puede estar vacio'}),400
                 if lastname == "":
-                    return jsonify({'status': 400, 'descripcion': 'El apellido no puede estar vacio'})
+                    return jsonify({'status': 400, 'descripcion': 'El apellido no puede estar vacio'}),400
                 if email == "":
-                    return jsonify({'status': 400, 'descripcion': 'El email no puede estar vacio'})
+                    return jsonify({'status': 400, 'descripcion': 'El email no puede estar vacio'}),400
                 if fecha_nac == "":
-                    return jsonify({'status': 400, 'descripcion': 'La fecha de nacimiento no puede estar vacia'})
+                    return jsonify({'status': 400, 'descripcion': 'La fecha de nacimiento no puede estar vacia'}),400
                 if cel == "":
-                    return jsonify({'status': 400, 'descripcion': 'El numero de celular no puede estar vacio'})
+                    return jsonify({'status': 400, 'descripcion': 'El numero de celular no puede estar vacio'}),400
                 if password == "":
-                    return jsonify({'status': 400, 'descripcion': 'La contraseña no puede estar vacia'})
+                    return jsonify({'status': 400, 'descripcion': 'La contraseña no puede estar vacia'}),400
                 
-                return jsonify({"status" : 200})
+                return jsonify({"status" : 200, "descripcion" : "usuario actualizado correctamente"}),200
             except:
-                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para actualizar informacion'})
+                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para actualizar informacion'}),400
             
         except jwt.ExpiredSignatureError:
-            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400})
+            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400}),400
         except jwt.InvalidTokenError:
-            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400})
+            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400}),400
     else:
-        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'}),500
 
 @perfil.route('/getUser', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def getInfo():
@@ -59,22 +57,19 @@ def getInfo():
             tokenDatos.pop("exp",None)
             
             try:
-                carne = request.json['carne']
-
-                if carne != tokenDatos['id']:
-                    return jsonify({'status': 400, 'descripcion': 'El carne no coincide con el usuario logeado'})
+                carne = tokenDatos['carne']
                 
-                return jsonify({"status" : 200, "carne" : "201903850", "name" : "Adrian", "lastname" : "Molina", 
+                return jsonify({"status" : 200, "carne" : carne, "name" : "Adrian", "lastname" : "Molina", 
                                 "email" : "adriansmc@gmail.com", "fecha_nac" : "20/12/2000", "cel" : "55515147",
-                                "cui" : "3020721280101"})
+                                "cui" : "3020721280101"}),200
             except:
-                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para obtener informacion'})
+                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para obtener informacion'}),400
         except jwt.ExpiredSignatureError:
-            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400})
+            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400}),400
         except jwt.InvalidTokenError:
-            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400})
+            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400}),400
     else:
-        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'}),500
     
 @perfil.route('/getCursos', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def getCursos():
@@ -85,27 +80,26 @@ def getCursos():
             tokenDatos.pop("exp",None)
             
             try:
-                carne = request.json['carne']
-
-                if carne != tokenDatos['id']:
-                    return jsonify({'status': 400, 'descripcion': 'El carne no coincide con el usuario logeado'})
-                
+                carne = tokenDatos['carne']
+    
                 return jsonify({"status" : 200, "total_credits" : 10, 
                                 "courses" : [
                                                 {"code" : 101, "name" : "Deportes 1", "credits" : 2},
                                                 {"code" : 102, "name" : "Deportes 2", "credits" : 2},
                                                 {"code" : 103, "name" : "Quimica", "credits" : 5}
                                             ]
-                                })
+                                }),200
             except:
-                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para obtener informacion'})
+                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para obtener informacion'}),400
         except jwt.ExpiredSignatureError:
-            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400})
+            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400}),400
         except jwt.InvalidTokenError:
-            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400})
+            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400}),400
     else:
-        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
-    
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'}),500
+
+
+
 @perfil.route('/setCurso', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def setCurso():
     if request.method == 'POST':
@@ -115,23 +109,24 @@ def setCurso():
             tokenDatos.pop("exp",None)
             
             try:
-                carne = request.json['carne']
+                carne = tokenDatos['carne']
                 code = request.json['code_course']
 
-                if carne != tokenDatos['id']:
-                    return jsonify({'status': 400, 'descripcion': 'El carne no coincide con el usuario logeado'})
+             
                 if code == 0:
-                    return jsonify({'status': 400, 'descripcion': 'El curso no existe'})
+                    return jsonify({'status': 400, 'descripcion': 'El curso no existe'}),400
                 
-                return jsonify({"status" : 200})
+                return jsonify({"status" : 200, "descripcion" : "Se ha asignado el usuario correctamente"}),200
             except:
-                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para agregar curso'})
+                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para agregar curso'}),400
         except jwt.ExpiredSignatureError:
-            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400})
+            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400}),400
         except jwt.InvalidTokenError:
-            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400})
+            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400}),400
     else:
-        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'}),500
+
+
 
 @perfil.route('/deleteCurso', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def deleteCurso():
@@ -142,20 +137,19 @@ def deleteCurso():
             tokenDatos.pop("exp",None)
             
             try:
-                carne = request.json['carne']
+                carne = tokenDatos['carne']
                 code = request.json['code_course']
 
-                if carne != tokenDatos['id']:
-                    return jsonify({'status': 400, 'descripcion': 'El carne no coincide con el usuario logeado'})
-                if code == 0:
-                    return jsonify({'status': 400, 'descripcion': 'El curso no existe'})
                 
-                return jsonify({"status" : 200})
+                if code == 0:
+                    return jsonify({'status': 400, 'descripcion': 'El curso no existe'}),400
+                
+                return jsonify({"status" : 200, "descripcion" : "Se ha eliminado el curso correctamente"}),200
             except:
-                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para eliminar curso'})
+                return jsonify({'status': 400, 'descripcion': 'Datos incorrectos para eliminar curso'}),400
         except jwt.ExpiredSignatureError:
-            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400})
+            return jsonify({"descripcion" : "JWT ya expiro", "status" : 400}),400
         except jwt.InvalidTokenError:
-            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400})
+            return jsonify({"descripcion"  : "Error en token enviado", "status" : 400}),400
     else:
-        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'})
+        return jsonify({'status': 500, 'descripcion': 'Metodo no manejado'}),500

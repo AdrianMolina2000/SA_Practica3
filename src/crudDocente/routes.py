@@ -20,8 +20,8 @@ def getcrudDocente():
             tokenDatos = jwt.decode(token, "secret", algorithms=["HS256"])
             tokenDatos.pop("exp", None)
             
-            if "201901510" != str(tokenDatos['carne']):
-                return jsonify({'status': 400, 'descripcion': 'El usuario no ha sido encontrado'}),400
+            #if "201901510" != str(tokenDatos['carne']):
+            #    return jsonify({'status': 400, 'descripcion': 'El usuario no ha sido encontrado'}),400
               
 
             try:
@@ -56,8 +56,8 @@ def postcrudDocente():
             tokenDatos = jwt.decode(token, "secret", algorithms=["HS256"])
             tokenDatos.pop("exp",None)
 
-            if "201903850" != str(tokenDatos['carne']):
-                return jsonify({'status': 400, 'descripcion': 'El usuario no ha sido encontrado'}),400
+            #if "201903850" != str(tokenDatos['carne']):
+            #    return jsonify({'status': 400, 'descripcion': 'El usuario no ha sido encontrado'}),400
             
             try:
                 email = request.json['email']
@@ -93,8 +93,8 @@ def deletecrudDocente():
             tokenDatos = jwt.decode(token, "secret", algorithms=["HS256"])
             tokenDatos.pop("exp",None)
             
-            if "201903850" != str(tokenDatos['carne']):
-                return jsonify({'status': 400, 'descripcion': 'El usuario no ha sido encontrado'}),400
+            #if "201903850" != str(tokenDatos['carne']):
+            #   return jsonify({'status': 400, 'descripcion': 'El usuario no ha sido encontrado'}),400
             try:
                 email = request.json['email']
 
