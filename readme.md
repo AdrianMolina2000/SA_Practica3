@@ -43,10 +43,6 @@ Se utilizaron la siguiente lista de errores
 
 ```
 
-
-
-
-
 ## LOGIN
 Este microservicio fue elegido debido a que necesitamos obtener un token para validar la existencia del usuario y realizar las operaciones dentro de la plataforma.
 
@@ -223,7 +219,7 @@ El servicio debe de tener la siguiente configuración
 |Atributo|Tipo| Descripción|
 |----|----|----|
 |Content type| header|application/json|
-|Token|header|token <TOKEN>|
+|Token|header|token &lt;TOKEN&gt;|
 
 
 
@@ -291,7 +287,7 @@ El servicio debe de tener la siguiente configuración
 |Atributo|Tipo| Descripción|
 |----|----|----|
 |Content type| header|application/json|
-|Token|header|token <TOKEN>|
+|Token|header|token &lt;TOKEN&gt;|
 
 **Body:**
 |Atributo|Tipo| Descripción|
@@ -335,6 +331,475 @@ El servicio debe de tener la siguiente configuración
 	"description" : "El usuario no ha sido encontrado"
 }
 ```
+---
+<br>
+
+## **SET-CURSOS**
+
+Este microservicio fue creado bajo la necesidad de poder crear y agregar nuevos cursos, almacenando toda su información.
+
+|ID: 019                |Nombre: Registrar cursos a la plataforma                          |
+| :-                    | :-                                                               |
+|**Prioridad:** Alta        | <p>**Historia de usuario:**</p> <p>Como administrador quiero poder agregar cursos, con su información, a la plataforma.</p>|
+|**Estimado:** 3 puntos                                                                   ||
+|**Módulo:** CRUD Cursos                                                                  ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto se podrá registrar un curso en la base de datos</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** crudCursos/setcurso<br> **Método:** POST<br> **Descripción:** La función de este endpoint es registrar los cursos a utilizar en la plataforma.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| code_course | String | Código del curso |
+| name_course | String |Nombre del curso |
+| credit_course | Integer | Créditos del curso |
+| pre_courses | [String] | Lista de códigos pre-requisito |
+| optional | Integer | Parámetro para verificar si el curso es obligatorio |
+<br>
 
 
-   
+**Ejemplo de body de entrada:**
+```
+{
+      "code_course" : "0780",
+      "name_course" : "Software Avanzado",
+      "credit_course" : 8,
+      "pre_courses" : ["0708", "0901"],
+      "optional" : 1
+}
+
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| descripcion | String | Descripcion de respuesta |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```
+{
+      "status" : 200,
+      "descripcion" : "Se ha creado el curso correctamente"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```
+{
+      "status" : 500,
+      "description" :  "Ha fallado la conexión"
+}
+```
+
+---
+<br>
+
+## **DELETE-CURSOS**
+
+Este microservicio fue creado bajo la necesidad de eliminar cursos que se encuentran creados y registrados en la plataforma.
+
+|ID: 020                |Nombre: Eliminar un curso en la base de datos                          |
+| :-                    | :-                                                               |
+|**Prioridad:** Media        | <p>**Historia de usuario:**</p> <p>Como administrador quiero eliminar cursos en la plataforma.</p>|
+|**Estimado:** 2 puntos                                                                   ||
+|**Módulo:** CRUD Cursos                                                                             ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto podrá eliminar un curso registrado en la base base de datos.</p><p></p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** crudCursos/deleteCurso<br> **Método:** DELETE<br> **Descripción:** La función de este endpoint elimina cursos registrados.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| code_course | String | Código del curso |
+
+**Ejemplo de body de entrada:**
+```
+{
+      "code_course" : "0780"
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| descripcion | String | Descripcion de respuesta |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```
+{
+      "status" : 200,
+      "descripcion" : "Se ha eliminado el curso correctamente"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```
+{
+      "status" : 500,
+      "description" :  "Ha fallado la conexión"
+}
+```
+
+---
+<br>
+
+## **GET-ALL-CURSOS**
+
+Este microservicio fue creado bajo la necesidad de eliminar cursos que se encuentran creados y registrados en la plataforma.
+
+|ID: 021                |Nombre: Obtener cursos almacenados en la plataforma                         |
+| :-                    | :-                                                               |
+|**Prioridad:** Baja        | <p>**Historia de usuario:**</p> <p>Como usuario quiero obtener la lista de los cursos registrados en la plataforma con la información de cada uno.</p>|
+|**Estimado:** 2 puntos                                                                   ||
+|**Módulo:** CRUD Cursos                                                                             ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto devolverá todos los cursos que están registrados en la base de datos.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** crudCursos/getAllCursos<br> **Método:** GET<br> **Descripción:** La función de este endpoint devuelve todos los cursos registrados.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+
+**Ejemplo de body de entrada:**
+```
+{}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| courses | [String] | Lista de los cursos almacenados |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```
+{
+      "status" : 200,
+      "course" : [
+                  {
+                        "code_course" : 0780,
+                        "name_course" : "Software Avanzado",
+                        "credit_course" : 8,
+                        "pre_course" : ["0785"],
+                        "optional" : 1
+                  }
+            ]
+
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```
+{
+      "status" : 500,
+      "description" :  "Ha fallado la conexión"
+}
+```
+
+---
+<br>
+
+## **ADD-HORARIOS-CURSOS**
+
+Este microservicio fue creado bajo la necesidad de poder asignar horarios para los cursos en un respectivo semestre.
+
+|ID: 022                |Nombre: Agregar horarios a los cursos del semestre                          |
+| :-                    | :-                                                               |
+|**Prioridad:** Alta        | <p>**Historia de usuario:**</p> <p>Como administrador quiero agregar un horario para los cursos del semestre.</p>|
+|**Estimado:** 3 puntos                                                                   ||
+|**Módulo:** CRUD Horarios de Semestre                                                                             ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto inserta los horarios con los parámetros enviados.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** horarioSemestre/addHorarioCurso<br> **Método:** POST<br> **Descripción:** La función de este endpoint es la de agregar horarios a los cursos para el semestre.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| code_course | Integer | Código del curso |
+| code_doce | Integer | Código del docente |
+| section | String | Sección del curso |
+| hour_init | String | La hora en que inicia la clase |
+| hour_finish | String | La hora en que finaliza la clase |
+| dates | [String] | Lista de días de la seman el cual se impartirá el curso
+<br>
+
+
+**Ejemplo de body de entrada:**
+```
+{
+      "code_course" : "0780",
+      "code_doce" : 4,
+      "section" : "N",
+      "hour_init" : "19:00",
+      "hour_finish" : "20:40",
+      "dates" : ["Lunes","Miercoles"]
+}
+
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| descripcion | String | Descripcion de respuesta |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```
+{
+      "status" : 200,
+      "descripcion" : "Se ha agregado el horario correctamente"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```
+{
+      "status" : 500,
+      "description" :  "Ha fallado la conexión"
+}
+```
+
+---
+<br>
+
+## **REMOVE-HORARIO-CURSOS**
+
+Este microservicio fue creado bajo la necesidad para poder remover y eliminar los horarios que le fueron asignados a los cursos.
+
+|ID: 023                |Nombre: Remover horario de curso del semestre                        |
+| :-                    | :-                                                               |
+|**Prioridad:** Media        | <p>**Historia de usuario:**</p> <p>Como administrador quiero eliminar el horario de un curso en el semestre.</p>|
+|**Estimado:** 2 puntos                                                                   ||
+|**Módulo:** CRUD Horarios de Semestre ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto podrá eliminar un horario para un curso en el semestre.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** horariosSemestre/removeHorarioCurso<br> **Método:** DELETE<br> **Descripción:** La función de este endpoint es eliminar los cursos en la lista de horarios de cursos para el semestre.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| code_course | String | Código del curso |
+| section | String | Sección del curso |
+
+**Ejemplo de body de entrada:**
+```
+{
+      "code_course" : "0780",
+      "section" : "N"
+}
+
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| descripcion | String | Descripcion de respuesta |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```
+{
+    "status" : 200,
+    "descripcion" : "Se ha eliminado el horario correctamente"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```
+{
+    "status" : 500,
+    "description" :  "Ha fallado la conexión"
+}
+```
+
+---
+<br>
+
+## **GET-HORARIOS-CURSOS**
+
+Este microservicio fue creado bajo la necesidad de obtener el listado de horarios para los cursos que se encuentran registrados en el semestre.
+
+|ID: 024                |Nombre: Obtener horarios de cursos del semestre                          |
+| :-                    | :-                                                               |
+|**Prioridad:** Baja        | <p>**Historia de usuario:**</p> <p>Como usuario quiero obtener un listado de horarios de los cursos registrados en el semestre.</p>|
+|**Estimado:** 3 puntos                                                                   ||
+|**Módulo:** CRUD Horarios de Semestre ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto devolverá  todos los horarios de cursos que están registrados en el semestre.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** horariosSemestre/getHorariosCursos<br> **Método:** GET<br> **Descripción:** La función de este endpoint tiene la de devolver todos los cursos registrados en los horarios para el semestre.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+
+**Ejemplo de body de entrada:**
+```
+{}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| courses | [String] | Lista de los horarios de cursos almacenados |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```
+{
+    "status" : 200,
+    "course" : [
+                  {
+                        "code_course" : "0780",
+	                  "code_doce" : 4,
+	                  "section" : "N",
+	                  "hour_init" : "19:00",
+	                  "hour_finish" : "20:40",
+	                  "dates" : ["Lunes","Miercoles"]
+                  }
+            ]
+
+
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```
+{
+    "status" : 500,
+    "description" :  "Ha fallado la conexión"
+}
+```
