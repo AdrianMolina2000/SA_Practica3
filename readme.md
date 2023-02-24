@@ -334,6 +334,556 @@ El servicio debe de tener la siguiente configuración
 ---
 <br>
 
+## **UPDATE-USER-INFO**
+
+Este microservicio fue creado bajo la necesidad de poder actualizar la información almacenada de un usuario.
+|ID: 012                |Nombre:  Microservicio Actualizar mi información                                                |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Media   | <p>**Historia de usuario:**</p> <p>Como usuario quiero poder actualizar mi información para</p>|
+|**Estimado:** 2 puntos                                                                                                 ||
+|**Módulo:** Perfil                                                                                                     ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto usará los
+parámetros enviados en el body para realizar la actualización de información</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** perfil/updateUser<br> **Método:** PUT<br> **Descripción:** La función de este endpoint es permitir editar la información del usuario.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| name | String | Nombre del usuario |
+| lastname | String | Apellido del usuario |
+| email | Integer | Email del usuario |
+| fecha_nac | Integer | Fecha de nacimiento del usuario |
+| cel | Integer | celular del usuario |
+| password | Integer | contraseña del usuario |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```
+{
+      "name" : "Adrian",
+      "lastname" : "Molina",
+      "email" : "admin@gmail.com",
+      "fecha_nac" : "20/12/2000",
+      "cel" : "55555151",
+      "password" : "admin1234"
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| descripcion | String | Descripcion de respuesta |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```
+{
+      "status" : 200,
+      "descripcion" : "usuario actualizado correctamente"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```
+{
+      "status" : 500,
+      "description" :  "Usuario no existente"
+}
+```
+---
+<br>
+
+## **GET-USER-INFO**
+
+Este microservicio fue creado bajo la necesidad de obtener la información sobre un usuario que fue registrada en su creación.
+
+|ID: 013                |Nombre:  Microservicio Obtener mi información                                                |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Baja   | <p>**Historia de usuario:**</p> <p>Como usuario quiero obtener la información que ingresé al registrarme.</p>|
+|**Estimado:** 1 puntos                                                                                                 ||
+|**Módulo:** Perfil                                                                                                     ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto usará el carné enviado para obtener la información del usuario</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** perfil/getUser<br> **Método:** GET<br> **Descripción:** La función de este endpoint es obtener la información del usuario.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```
+{
+
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| carne | Integer | Carne del usuario |
+| name | String | Nombre del usuario |
+| lastname | String | Apellido del usuario |
+| email | Integer | Email del usuario |
+| fecha_nac | Integer | Fecha de nacimiento del usuario |
+| cel | Integer | celular del usuario |
+| cui | Integer | Cui del usuario |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```
+{
+      "status" : 200
+      "carne" : 201903800,
+      "name" : "Adrian",
+      "lastname" : "Molina",
+      "email" : "admin@gmail.com",
+      "fecha_nac" : "20/12/2000",
+      "cel" : "55555151",
+	"cui" : "3020721280105"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```
+{
+      "status" : 500,
+      "description" :  "Usuario no existente"
+}
+```
+---
+<br>
+
+## **GET-CURSOS-APROBADOS**
+
+Este microservicio fue creado bajo la necesidad de poder obtener el listado de todos los cursos que el usuario ha marcado como aprobados.
+
+|ID: 014                |Nombre:  Microservicio obtener mis cursos  aprobados                                                |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Baja   | <p>**Historia de usuario:**</p> <p>Como usuario quiero obtener un listado de todos los cursos que he marcado como aprobados.</p>|
+|**Estimado:** 1 puntos                                                                                                 ||
+|**Módulo:** Perfil                                                                                                     ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto usará el carné enviado para obtener las lista de cursos aprobados del usuario.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** perfil/getCursos<br> **Método:** GET<br> **Descripción:** La función de este endpoint es obtener un listado de cursos ya aprobados por el usuario.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```
+{
+
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| total_credits | Integer | Número total de créditos |
+| courses | [String] | listado de cursos aprobados por el usuario |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```
+{
+      "status" : 200
+      "total_credits" : 9,
+      "courses" : [
+      {"code" : 101, "name" : "Deportes 1", "credits":1},                  
+      {"code" : 348, "name" : "Química", "credits": 3}, 
+      {"code" : 147, "name" : "Física", "credits": 5}, 
+      ]
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```
+{
+      "status" : 500,
+      "description" :  "Usuario no existente"
+}
+```
+---
+<br>
+
+## **SET-CURSO-APROBADO**
+
+Este microservicio fue creado bajo la necesidad de que los usuarios puedan seleccionar y almacenar qué cursos han aprobado.
+|ID: 015                |Nombre:  Microservicio Guardar curso aprobado                                                |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Alta   | <p>**Historia de usuario:**</p> <p>Como usuario quiero guardar cursos que tengo aprobados.</p>|
+|**Estimado:** 2 puntos                                                                                                 ||
+|**Módulo:** Perfil                                                                                                     ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto usará el carné y código de curso enviados para guardar la información de cursos aprobados del usuario.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** perfil/setCurso<br> **Método:** POST<br> **Descripción:** La función de este endpoint es almacenar los cursos ya aprobados por el usuario.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| code_course | Integer | Código del curso |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```
+{
+      "code_course" : 101
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| descripcion | String | Descripcion de respuesta |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```
+{
+      "status" : 200,
+      "descripcion" : "Se ha asignado el curso correctamente"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```
+{
+      "status" : 500,
+      "description" :  "El curso no existe"
+}
+```
+---
+<br>
+
+## **DELETE-CURSOS**
+
+Este microservicio fue creado bajo la necesidad de que los usuarios puedan eliminar cursos de su propia lista de cursos que previamente se han seleccionado como aprobados.
+|ID: 016                |Nombre:  Eliminar curso aprobado                |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Alta   | <p>**Historia de usuario:**</p> <p>Como usuario quiero eliminar cursos aprobados de mi lista.</p>|
+|**Estimado:** 2 puntos                                                                                                 ||
+|**Módulo:** Perfil                                                                                                     ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto usará el carné y codigo de curso enviados para eliminar la información de la lista de cursos.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** perfil/deleteCurso<br> **Método:** DELETE<br> **Descripción:** La función de este endpoint es eliminar un curso que se encuentre en la lista de cursos aprobados por el usuario.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| code_course | Integer | Código del curso |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```
+{
+      "code_course" : 101
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| descripcion | String | Descripcion de respuesta |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```
+{
+      "status" : 200,
+      "descripcion" : "Se ha eliminado el curso correctamente"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```
+{
+      "status" : 500,
+      "description" :  "El curso no se encuentra asociado al usuario"
+}
+```
+---
+<br>
+
+## **SET-POST**
+
+Este microservicio fue creado bajo la necesidad de poder registrar y almacenar las nuevas publicaciones que los usuarios crean.
+|ID: 017                |Nombre:  Crear Posts para la comunidad aprobado                |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Alta   | <p>**Historia de usuario:**</p> <p>Como usuario quiero crear publicaciones para que los demás lean mis consejos y avisos.</p>|
+|**Estimado:** 2 puntos                                                                                                 ||
+|**Módulo:** Comunidad                                                                                                     ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto usarán los parámetros enviados para guardar los post del usuario.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** comunidad/setPost<br> **Método:** POST<br> **Descripción:** La función de este endpoint es almacenar los post creados por el usuario.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| title | String | Título del post |
+| msg | String | Cuerpo del post |
+| title | String | Etiqueta principal del post |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```
+{
+      "title" : "Iniciar Redes de Computadoras 1 de mejor 
+                 forma",
+      "msg" : "Tener instalado gns3, aprender lo básico sobre 
+               dispositivos cisco, …",
+      "tag" : "Redes"
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| descripcion | String | Descripcion de respuesta |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```
+{
+      "status" : 200,
+      "descripcion" : "Se ha creado el post correctamente"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```
+{
+      "status" : 500,
+      "description" :  "El usuario no existe"
+}
+```
+---
+<br>
+
+## **GET-POST**
+
+Este microservicio fue creado bajo la necesidad de poder obtener todos los post que se han creado y registrado que cumplan con un tema en específico.
+|ID: 018                |Nombre:  Obtener los post creados aprobado                |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Baja   | <p>**Historia de usuario:**</p> <p>Como usuario quiero ver todos los post creados y buscar por un tema en específico.</p>|
+|**Estimado:** 1 punto                                                                                                 ||
+|**Módulo:** Comunidad                                                                                                     ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto podrá obtener la información sobre los post creados.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** comunidad/getPost<br> **Método:** GET<br> **Descripción:** La función de este endpoint es obtener  los post creados por los usuarios registrados.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| tag | String | Parámetro opcional para recuperar únicamente posts con el tag principal solicitado. |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```
+{
+      "tag" : "Redes"
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| posts | [String] | Lista de post creados por los usuarios |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```
+{
+      "status" : 200,
+      "posts" : [
+            {
+	              "carne" : "201903800",
+                    "title" : "Iniciar Redes de Computadoras 1 
+                               de mejor forma",
+                    "msg" :   "Tener instalado gns3, aprender
+                               lo básico sobre dispositivos
+                               cisco, …",
+                    "tag" :   "Redes"
+            }
+      ]
+
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```
+{
+      "status" : 500,
+      "description" :  "Ha fallado la conexión"
+}
+```
+---
+<br>
+
 ## **SET-CURSOS**
 
 Este microservicio fue creado bajo la necesidad de poder crear y agregar nuevos cursos, almacenando toda su información.
@@ -803,3 +1353,9 @@ Este microservicio fue creado bajo la necesidad de obtener el listado de horario
     "description" :  "Ha fallado la conexión"
 }
 ```
+
+
+
+
+
+
