@@ -334,7 +334,7 @@ El servicio debe de tener la siguiente configuración
 
 ## **GET-ALL-DOCENTE**
 Este microservicio fue creado bajo la necesidad de poder obtener la información de todos los docentes que se encuentran registrados.
-|ID: 012                |Nombre:  Microservicio obtener los docentes                                               |
+|ID: 005                |Nombre:  Microservicio obtener los docentes                                               |
 | :-                    | :-                                                                                             |
 |**Prioridad:** Alta   | <p>**Historia de usuario:**</p> <p>Como desarrollador quiero obtener una lista con los docentes registrados.</p>|
 |**Estimado:** 1 puntos                                                                                                 ||
@@ -783,14 +783,14 @@ Este microservicio fue creado bajo la necesidad de realizar dos gestiones entre 
 ---
 <br>
 
-## **GESTIONAR-EVENTO**
+## **ELIMINAR-EVENTO**
 Este microservicio fue creado bajo la necesidad de poder eliminar un evento que se encuentra creado.
 |ID: 011                |Nombre:  Microservicio eliminar evento                                           |
 | :-                    | :-                                                                                             |
 |**Prioridad:** Media   | <p>**Historia de usuario:**</p> <p>Como usuario quiero eliminar eventos que estén existentes.</p>|
 |**Estimado:** 1 puntos                                                                                                 ||
 |**Módulo:** calendarioEvento                                                                                                ||
-|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto remueve un evento se elimine el registro de la base de datos.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** calendarioEvento/eliminarEvent<br> **Método:** POST<br> **Descripción:** Este endpoint permite eliminar un evento.</p>||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto remueve un evento se elimine el registro de la base de datos.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** calendarioEvento/eliminarEvent<br> **Método:** DELETE<br> **Descripción:** Este endpoint permite eliminar un evento.</p>||
 <br>
 
 **Formato de entrada:** JSON
