@@ -11,14 +11,10 @@ A continuación se muestran todos los aspectos de cada módulo que se asignaron 
 
 |DESARROLLADOR|MÓDULO|
  |----| ---- |
- |Pablo Daniel Rivas Marroquin| ```-auth```|
- |Pablo Daniel Rivas Marroquin|```-pensum```|
- |German Jose Paz Cordon| ```-crudDocente```| 
- |German Jose Paz Cordon|```-calendarioEvento```|
- |Adrian Samuel Molina Cabrera| ```-perfil```|
- |Adrian Samuel Molina Cabrera|```-comunidad```|
- |Diego Fernando Cortez Lopez| ```-crudCursos ```|
- |Diego Fernando Cortez Lopez|```-horariosSemestre```|
+ |Pablo Daniel Rivas Marroquin| ```-auth```<p>```-pensum```</p>|
+ |German Jose Paz Cordon| ```-crudDocente```<p>```-calendarioEvento```</p>|
+ |Adrian Samuel Molina Cabrera|```-perfil```<p>```-comunidad```</p>|
+ |Diego Fernando Cortez Lopez| ```-crudCursos ```<p>```-horariosSemestre```</p>|
 
 **Código de respuestas exitosas**
 Se utilizaron la siguiente lista de errores
@@ -34,7 +30,7 @@ Se utilizaron la siguiente lista de errores
 |500|Se ha producido un error interno en el servidor|
 
 **Cuerpo de Token**
-```
+```json
 {
  "carne": "201901510",
  "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
@@ -77,7 +73,7 @@ El servicio debe de tener la siguiente configuración
 |password|String|Contraseña del usuario|
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
 	"carne" : "201901510",
 	"password" : "1234"
@@ -91,7 +87,7 @@ El servicio debe de tener la siguiente configuración
 |token|String|Token de autenticación|
 
 **Ejemplo de parámetros de salida exitosa:**
-```
+```json
 {
     "status" : 200,
     "token" : "d45a98d4a6d58nfuf9837489vfsmoiksa4d54a…"
@@ -104,7 +100,7 @@ El servicio debe de tener la siguiente configuración
 |status|Integer|Código de respuesta|
 |description|String|Descripción del error.|
 **Ejemplo de parámetros de salida fallida:**
-```
+```json
 {
     "status" : 400,
     "description" : "Usuario no encontrado"
@@ -152,16 +148,16 @@ El servicio debe de tener la siguiente configuración
 
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
 	"name" : "Pablo Daniel",
-      "lastname" : "Rivas Marroquin",
-      "carne" : 201901510,
-      "cui" : "3657569460101",
-      "email" : "pdanielr225@gmail.com",
-      "password" : "DWAdsad45664s",
-      "fecha_nac" : "28/02/2000",
-      "cel" : "57391252"
+    "lastname" : "Rivas Marroquin",
+    "carne" : 201901510,
+    "cui" : "3657569460101",
+    "email" : "pdanielr225@gmail.com",
+    "password" : "DWAdsad45664s",
+    "fecha_nac" : "28/02/2000",
+    "cel" : "57391252"
 }
 
 ```
@@ -173,9 +169,9 @@ El servicio debe de tener la siguiente configuración
 |descripcion|String|Descripción de la respuesta|
 
 **Ejemplo de parámetros de salida exitosa:**
-```
+```json
 {
-    "descripcion" : "Se ha registrado Correctamente" 
+    "descripcion" : "Se ha registrado Correctamente", 
 	"status" : 200
 }
 
@@ -186,8 +182,10 @@ El servicio debe de tener la siguiente configuración
 |----|----|----|
 |status|Integer|Código de respuesta|
 |description|String|Descripción del error.|
+
+
 **Ejemplo de parámetros de salida fallida:**
-```
+```json
 {
 	"status" : 400,
 	"description" : "El carné ingresado ya se encuentra registrado"
@@ -229,9 +227,9 @@ El servicio debe de tener la siguiente configuración
 |code_course|String|Código del curso|
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
-      "code_course" : "0780"
+    "code_course" : "0780"
 }
 ```
 **Formato de salida:** JSON
@@ -242,9 +240,9 @@ El servicio debe de tener la siguiente configuración
 |descripcion|String|Descripción de la respuesta|
 
 **Ejemplo de parámetros de salida exitosa:**
-```
+```json
 {
-      "descripcion" : "se ha asignado correctamente el curso" 
+    "descripcion" : "se ha asignado correctamente el curso",
 	"status" : 200
 }
 ```
@@ -255,7 +253,7 @@ El servicio debe de tener la siguiente configuración
 |status|Integer|Código de respuesta|
 |description|String|Descripción del error.|
 **Ejemplo de parámetros de salida fallida:**
-```
+```json
 {
 	"status" : 400,
 	"description" : "El curso ya se encuentra asociado al usuario"
@@ -294,7 +292,7 @@ El servicio debe de tener la siguiente configuración
 |----|----|----|
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
 }
 ```
@@ -306,15 +304,15 @@ El servicio debe de tener la siguiente configuración
 |courses|[String]|Lista de cursos asignados|
 
 **Ejemplo de parámetros de salida exitosa:**
-```
+```json
 {
 	"status" : 200,
-      "courses" : [
+    "courses" : [
                     {
                       "code_course" : 0780,
                       "name_course" : "Software Avanzado"
                     }
-                  ]
+                ]
 }
 
 ```
@@ -325,10 +323,532 @@ El servicio debe de tener la siguiente configuración
 |status|Integer|Código de respuesta|
 |description|String|Descripción del error.|
 **Ejemplo de parámetros de salida fallida:**
-```
+```json
 {
 	"status" : 400,
 	"description" : "El usuario no ha sido encontrado"
+}
+```
+---
+<br>
+
+## **GET-ALL-DOCENTE**
+Este microservicio fue creado bajo la necesidad de poder obtener la información de todos los docentes que se encuentran registrados.
+|ID: 012                |Nombre:  Microservicio obtener los docentes                                               |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Alta   | <p>**Historia de usuario:**</p> <p>Como desarrollador quiero obtener una lista con los docentes registrados.</p>|
+|**Estimado:** 1 puntos                                                                                                 ||
+|**Módulo:** crudDocente                                                                                                ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto podrá obtener la lista de cursos asignados.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** crudDocente/getAllcrudDocente<br> **Método:** GET<br> **Descripción:** Este endpoint permite obtener a todos los docentes registrados.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```json
+{
+
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| lista_docente | [String] | Lista de docentes registrados |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```json
+{
+	"status" : 200,
+      "lista_docente" : [
+           {
+              "id" : 2
+              "email" : "germanpc9@gmail.com",
+              "name" : "German José",
+              "lastname" : "Paz Cordón"
+           }
+      ]
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```json
+{
+	"status" : 400,
+	"description" : "El usuario no ha sido encontrado"
+}
+```
+---
+<br>
+
+## **ADD-DOCENTE**
+Este microservicio fue creado bajo la necesidad de poder registrar la información de un nuevo docente.
+|ID: 006                |Nombre:  Microservicio obtener los docentes                                               |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Alta   | <p>**Historia de usuario:**</p> <p>Como desarrollador quiero un formulario donde se puedan registrar los datos del docente</p>|
+|**Estimado:** 3 puntos                                                                                                 ||
+|**Módulo:** crudDocente                                                                                                ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto usará los parámetros enviados para registrar a un docente.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** crudDocente/addcrudDocente<br> **Método:** POST<br> **Descripción:** Este endpoint permite la creación de nuevos docentes.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| email | String | Correo electrónico del docente. |
+| name | String | Nombres del docente. |
+| lastname | String | Apellidos del docente. |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```json
+{
+    "email" : "germanpc90@gmail.com",
+	"name" : "German José",
+	"lastname" : "Paz Cordón"
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error. |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```json
+{
+	"status" : 200,
+    "description": "Se ha insertado el docente correctamente"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```json
+{
+	"status" : 400,
+	"description" : "El docente ya existe."
+}
+```
+---
+<br>
+
+## **REMOVE-DOCENTE**
+Este microservicio fue creado bajo la necesidad de eliminar a un docente existente.
+|ID: 007                |Nombre:  Microservicio Remover Docentes                                             |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Media   | <p>**Historia de usuario:**</p> <p>Como desarrollador quiero una opcionalidad donde se pueden eliminar docentes registrados.</p>|
+|**Estimado:** 2 puntos                                                                                                 ||
+|**Módulo:** crudDocente                                                                                                ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto se debe de remover de la base de datos.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** crudDocente/removecrudDocente<br> **Método:** DELETE<br> **Descripción:** Este endpoint permite eliminar docentes registrados.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| email | String | Correo electrónico del docente. |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```json
+{
+    "email" : "germanpc90@gmail.com"
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error. |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```json
+{
+	"status" : 200,
+    "descripcion": "Se ha eliminado el docente correctamente"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```json
+{
+	"status" : 400,
+	"description" : "El docente no existe"
+}
+```
+---
+<br>
+
+## **GET-ALL-EVENT**
+Este microservicio fue creado bajo la necesidad de poder obtener todos los eventos que se encuentran registrados y calendarizados.
+|ID: 008                |Nombre:  Microservicio Obtener eventos                                             |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Media   | <p>**Historia de usuario:**</p> <p>Como usuario quiero obtener los eventos que están calendarizados.</p>|
+|**Estimado:** 2 puntos                                                                                                 ||
+|**Módulo:** calendarioEvento                                                                                                ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto devolverá todos los eventos que están registrados en base de datos.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** calendarioEvento/getAllEvent<br> **Método:** GET<br> **Descripción:** Este endpoint permite obtener todos los eventos creados.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```json
+{
+
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| list_eventos | [String] | Lista de eventos creados |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```json
+{
+	"status" : 200,
+      "list_eventos" : [
+           {
+              "id" : 1,
+              "carne" : 201902934,
+              "title" : "Conferencia SOA",
+              "msg" : "Se realizará una conferencia hablando sobre…",
+              "fecha" : "11/02/2023"
+           }
+      ]
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```json
+{
+	"status" : 500,
+	"description" : "Falla de conexión con el servidor"
+}
+```
+---
+<br>
+
+## **SEND-EVENT**
+Este microservicio fue creado bajo la necesidad de poder registrar un nuevo evento creado por un usuario.
+|ID: 009                |Nombre:  Microservicio registrar evento                                            |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Alta   | <p>**Historia de usuario:**</p> <p>Como usuario quiero enviar un evento por medio de un formulario que permita registrar los datos solicitados.</p>|
+|**Estimado:** 2 puntos                                                                                                 ||
+|**Módulo:** calendarioEvento                                                                                                ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto debe de registrar el evento por medio del formulario e insertarse en base de datos.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** calendarioEvento/sendEvent<br> **Método:** POST<br> **Descripción:** Este endpoint permite obtener todos los eventos creados.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| title | String | Titulo del evento |
+| msg | String | Mensaje del evento |
+| fecha | String | Fecha del evento |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```json
+{
+    "title" : "Conferencia SOA",
+    "msg" : "Se realizará una conferencia hablando sobre…",
+    "fecha" : "11/02/2023"
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| description | String | Descripción de la respuesta |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```json
+{
+	"status" : 200,
+    "description": "Se agrego el evento correctamente"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```json
+{
+	"status" : 400,
+	"description" : "El carnet no existe."
+}
+```
+---
+<br>
+
+## **GESTIONAR-EVENTO**
+Este microservicio fue creado bajo la necesidad de realizar dos gestiones entre los eventos y usuarios. La primera enfocada a la asignación de un usuario a un evento y la otra gestión la desasignación de un usuario a un evento.
+|ID: 010                |Nombre:  Microservicio gestión de eventos                                            |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Alta   | <p>**Historia de usuario:**</p> <p>Como usuario quiero asignar o desasignar eventos.</p>|
+|**Estimado:** 1 puntos                                                                                                 ||
+|**Módulo:** calendarioEvento                                                                                                ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto se debe registrar en base de datos que se haya asignado un usuario a un evento existente.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** calendarioEvento/gestionarEvent<br> **Método:** POST<br> **Descripción:** Este endpoint permite asignar o desasignar un evento a un usuario.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| id_evento | Integer| Identificador del evento. |
+| carne | Integer | Carne del usuario. |
+| opcion | Integer | Operación a realizar (1: asignar, 0: desasignar) |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```json
+{
+    "id_evento" : 1,
+	"carne" : 201902934,
+    "opcion" : 1
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| description | String | Descripción de la respuesta |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```json
+{
+	"status" : 200,
+    "descripcion" : "Asignado al evento"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```json
+{
+	"status" : 400,
+	"description" : "No existe el evento"
+}
+```
+---
+<br>
+
+## **GESTIONAR-EVENTO**
+Este microservicio fue creado bajo la necesidad de poder eliminar un evento que se encuentra creado.
+|ID: 011                |Nombre:  Microservicio eliminar evento                                           |
+| :-                    | :-                                                                                             |
+|**Prioridad:** Media   | <p>**Historia de usuario:**</p> <p>Como usuario quiero eliminar eventos que estén existentes.</p>|
+|**Estimado:** 1 puntos                                                                                                 ||
+|**Módulo:** calendarioEvento                                                                                                ||
+|<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto remueve un evento se elimine el registro de la base de datos.</p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** calendarioEvento/eliminarEvent<br> **Método:** POST<br> **Descripción:** Este endpoint permite eliminar un evento.</p>||
+<br>
+
+**Formato de entrada:** JSON
+
+**Header:**
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| Content type | header | application/json |
+| Token        | header | token &lt;TOKEN&gt;|
+
+**Body:**
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| id_evento | Integer| Identificador del evento. |
+<br>
+
+
+**Ejemplo de body de entrada:**
+```json
+{
+    "id_evento" : 1
+}
+```
+**Formato de salida:** JSON
+
+**Código de respuesta exitosa:** HTTP 200
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :-         | :-     | :-            |
+| status | Integer | Código de respuesta |
+| description | String | Descripción de la respuesta |
+<br>
+
+**Ejemplo de parámetros de salida exitosa:**
+
+```json
+{
+	"status" : 200,
+    "descripcion" : "evento eliminado correctamente"
+}
+```
+
+**Formato de salida:** JSON
+
+**Código de respuesta fallida:** HTTP 400, HTTP 500
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+| status | Integer | Código de respuesta |
+| description | String | Descripción del error |
+
+**Ejemplo de parámetros de salida fallida:**
+
+```json
+{
+	"status" : 400,
+	"description" : "No existe el evento"
 }
 ```
 ---
@@ -368,14 +888,14 @@ parámetros enviados en el body para realizar la actualización de información<
 
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
-      "name" : "Adrian",
-      "lastname" : "Molina",
-      "email" : "admin@gmail.com",
-      "fecha_nac" : "20/12/2000",
-      "cel" : "55555151",
-      "password" : "admin1234"
+    "name" : "Adrian",
+    "lastname" : "Molina",
+    "email" : "admin@gmail.com",
+    "fecha_nac" : "20/12/2000",
+    "cel" : "55555151",
+    "password" : "admin1234"
 }
 ```
 **Formato de salida:** JSON
@@ -390,10 +910,10 @@ parámetros enviados en el body para realizar la actualización de información<
 
 **Ejemplo de parámetros de salida exitosa:**
 
-```
+```json
 {
-      "status" : 200,
-      "descripcion" : "usuario actualizado correctamente"
+    "status" : 200,
+    "descripcion" : "usuario actualizado correctamente"
 }
 ```
 
@@ -408,10 +928,10 @@ parámetros enviados en el body para realizar la actualización de información<
 
 **Ejemplo de parámetros de salida fallida:**
 
-```
+```json
 {
-      "status" : 500,
-      "description" :  "Usuario no existente"
+    "status" : 500,
+    "description" :  "Usuario no existente"
 }
 ```
 ---
@@ -445,7 +965,7 @@ Este microservicio fue creado bajo la necesidad de obtener la información sobre
 
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
 
 }
@@ -468,15 +988,15 @@ Este microservicio fue creado bajo la necesidad de obtener la información sobre
 
 **Ejemplo de parámetros de salida exitosa:**
 
-```
+```json
 {
-      "status" : 200
-      "carne" : 201903800,
-      "name" : "Adrian",
-      "lastname" : "Molina",
-      "email" : "admin@gmail.com",
-      "fecha_nac" : "20/12/2000",
-      "cel" : "55555151",
+    "status" : 200,
+    "carne" : 201903800,
+    "name" : "Adrian",
+    "lastname" : "Molina",
+    "email" : "admin@gmail.com",
+    "fecha_nac" : "20/12/2000",
+    "cel" : "55555151",
 	"cui" : "3020721280105"
 }
 ```
@@ -492,10 +1012,10 @@ Este microservicio fue creado bajo la necesidad de obtener la información sobre
 
 **Ejemplo de parámetros de salida fallida:**
 
-```
+```json
 {
-      "status" : 500,
-      "description" :  "Usuario no existente"
+    "status" : 500,
+    "description" :  "Usuario no existente"
 }
 ```
 ---
@@ -529,7 +1049,7 @@ Este microservicio fue creado bajo la necesidad de poder obtener el listado de t
 
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
 
 }
@@ -547,15 +1067,15 @@ Este microservicio fue creado bajo la necesidad de poder obtener el listado de t
 
 **Ejemplo de parámetros de salida exitosa:**
 
-```
+```json
 {
       "status" : 200
       "total_credits" : 9,
-      "courses" : [
-      {"code" : 101, "name" : "Deportes 1", "credits":1},                  
-      {"code" : 348, "name" : "Química", "credits": 3}, 
-      {"code" : 147, "name" : "Física", "credits": 5}, 
-      ]
+      "courses" :   [
+                        {"code" : 101, "name" : "Deportes 1", "credits":1},                  
+                        {"code" : 348, "name" : "Química", "credits": 3}, 
+                        {"code" : 147, "name" : "Física", "credits": 5}, 
+                    ]
 }
 ```
 
@@ -570,7 +1090,7 @@ Este microservicio fue creado bajo la necesidad de poder obtener el listado de t
 
 **Ejemplo de parámetros de salida fallida:**
 
-```
+```json
 {
       "status" : 500,
       "description" :  "Usuario no existente"
@@ -607,9 +1127,9 @@ Este microservicio fue creado bajo la necesidad de que los usuarios puedan selec
 
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
-      "code_course" : 101
+    "code_course" : 101
 }
 ```
 **Formato de salida:** JSON
@@ -624,7 +1144,7 @@ Este microservicio fue creado bajo la necesidad de que los usuarios puedan selec
 
 **Ejemplo de parámetros de salida exitosa:**
 
-```
+```json
 {
       "status" : 200,
       "descripcion" : "Se ha asignado el curso correctamente"
@@ -642,10 +1162,10 @@ Este microservicio fue creado bajo la necesidad de que los usuarios puedan selec
 
 **Ejemplo de parámetros de salida fallida:**
 
-```
+```json
 {
-      "status" : 500,
-      "description" :  "El curso no existe"
+    "status" : 500,
+    "description" :  "El curso no existe"
 }
 ```
 ---
@@ -679,9 +1199,9 @@ Este microservicio fue creado bajo la necesidad de que los usuarios puedan elimi
 
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
-      "code_course" : 101
+    "code_course" : 101
 }
 ```
 **Formato de salida:** JSON
@@ -696,10 +1216,10 @@ Este microservicio fue creado bajo la necesidad de que los usuarios puedan elimi
 
 **Ejemplo de parámetros de salida exitosa:**
 
-```
+```json
 {
-      "status" : 200,
-      "descripcion" : "Se ha eliminado el curso correctamente"
+    "status" : 200,
+    "descripcion" : "Se ha eliminado el curso correctamente"
 }
 ```
 
@@ -714,10 +1234,10 @@ Este microservicio fue creado bajo la necesidad de que los usuarios puedan elimi
 
 **Ejemplo de parámetros de salida fallida:**
 
-```
+```json
 {
-      "status" : 500,
-      "description" :  "El curso no se encuentra asociado al usuario"
+    "status" : 500,
+    "description" :  "El curso no se encuentra asociado al usuario"
 }
 ```
 ---
@@ -753,13 +1273,11 @@ Este microservicio fue creado bajo la necesidad de poder registrar y almacenar l
 
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
-      "title" : "Iniciar Redes de Computadoras 1 de mejor 
-                 forma",
-      "msg" : "Tener instalado gns3, aprender lo básico sobre 
-               dispositivos cisco, …",
-      "tag" : "Redes"
+    "title" : "Iniciar Redes de Computadoras 1 de mejor forma",
+    "msg" : "Tener instalado gns3, aprender lo básico sobre dispositivos cisco, …",
+    "tag" : "Redes"
 }
 ```
 **Formato de salida:** JSON
@@ -774,10 +1292,10 @@ Este microservicio fue creado bajo la necesidad de poder registrar y almacenar l
 
 **Ejemplo de parámetros de salida exitosa:**
 
-```
+```json
 {
-      "status" : 200,
-      "descripcion" : "Se ha creado el post correctamente"
+    "status" : 200,
+    "descripcion" : "Se ha creado el post correctamente"
 }
 ```
 
@@ -792,10 +1310,10 @@ Este microservicio fue creado bajo la necesidad de poder registrar y almacenar l
 
 **Ejemplo de parámetros de salida fallida:**
 
-```
+```json
 {
-      "status" : 500,
-      "description" :  "El usuario no existe"
+    "status" : 500,
+    "description" :  "El usuario no existe"
 }
 ```
 ---
@@ -829,9 +1347,9 @@ Este microservicio fue creado bajo la necesidad de poder obtener todos los post 
 
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
-      "tag" : "Redes"
+    "tag" : "Redes"
 }
 ```
 **Formato de salida:** JSON
@@ -846,21 +1364,17 @@ Este microservicio fue creado bajo la necesidad de poder obtener todos los post 
 
 **Ejemplo de parámetros de salida exitosa:**
 
-```
+```json
 {
-      "status" : 200,
-      "posts" : [
-            {
-	              "carne" : "201903800",
-                    "title" : "Iniciar Redes de Computadoras 1 
-                               de mejor forma",
-                    "msg" :   "Tener instalado gns3, aprender
-                               lo básico sobre dispositivos
-                               cisco, …",
+    "status" : 200,
+    "posts" : [
+                {
+	                "carne" : "201903800",
+                    "title" : "Iniciar Redes de Computadoras 1 de mejor forma",
+                    "msg" :   "Tener instalado gns3, aprenderlo básico sobre dispositivos cisco, …",
                     "tag" :   "Redes"
-            }
-      ]
-
+                }
+            ]
 }
 ```
 
@@ -875,7 +1389,7 @@ Este microservicio fue creado bajo la necesidad de poder obtener todos los post 
 
 **Ejemplo de parámetros de salida fallida:**
 
-```
+```json
 {
       "status" : 500,
       "description" :  "Ha fallado la conexión"
@@ -917,13 +1431,13 @@ Este microservicio fue creado bajo la necesidad de poder crear y agregar nuevos 
 
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
-      "code_course" : "0780",
-      "name_course" : "Software Avanzado",
-      "credit_course" : 8,
-      "pre_courses" : ["0708", "0901"],
-      "optional" : 1
+    "code_course" : "0780",
+    "name_course" : "Software Avanzado",
+    "credit_course" : 8,
+    "pre_courses" : ["0708", "0901"],
+    "optional" : 1
 }
 
 ```
@@ -939,10 +1453,10 @@ Este microservicio fue creado bajo la necesidad de poder crear y agregar nuevos 
 
 **Ejemplo de parámetros de salida exitosa:**
 
-```
+```json
 {
-      "status" : 200,
-      "descripcion" : "Se ha creado el curso correctamente"
+    "status" : 200,
+    "descripcion" : "Se ha creado el curso correctamente"
 }
 ```
 
@@ -957,10 +1471,10 @@ Este microservicio fue creado bajo la necesidad de poder crear y agregar nuevos 
 
 **Ejemplo de parámetros de salida fallida:**
 
-```
+```json
 {
-      "status" : 500,
-      "description" :  "Ha fallado la conexión"
+    "status" : 500,
+    "description" :  "Ha fallado la conexión"
 }
 ```
 
@@ -974,7 +1488,7 @@ Este microservicio fue creado bajo la necesidad de eliminar cursos que se encuen
 |ID: 020                |Nombre: Eliminar un curso en la base de datos                          |
 | :-                    | :-                                                               |
 |**Prioridad:** Media        | <p>**Historia de usuario:**</p> <p>Como administrador quiero eliminar cursos en la plataforma.</p>|
-|**Estimado:** 2 puntos                                                                   ||
+|**Estimado:** 2 puntos              G                                                     ||
 |**Módulo:** CRUD Cursos                                                                             ||
 |<p>**Criterio de aceptación:**</p><p>Se enviará un token para validar la autenticidad del usuario, y de ser correcto podrá eliminar un curso registrado en la base base de datos.</p><p></p><p>El servicio debe de tener la siguiente configuración</p><p>**Ruta:** crudCursos/deleteCurso<br> **Método:** DELETE<br> **Descripción:** La función de este endpoint elimina cursos registrados.</p>||
 <br>
@@ -994,9 +1508,9 @@ Este microservicio fue creado bajo la necesidad de eliminar cursos que se encuen
 | code_course | String | Código del curso |
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
-      "code_course" : "0780"
+    "code_course" : "0780"
 }
 ```
 **Formato de salida:** JSON
@@ -1011,10 +1525,10 @@ Este microservicio fue creado bajo la necesidad de eliminar cursos que se encuen
 
 **Ejemplo de parámetros de salida exitosa:**
 
-```
+```json
 {
-      "status" : 200,
-      "descripcion" : "Se ha eliminado el curso correctamente"
+    "status" : 200,
+    "descripcion" : "Se ha eliminado el curso correctamente"
 }
 ```
 
@@ -1029,10 +1543,10 @@ Este microservicio fue creado bajo la necesidad de eliminar cursos que se encuen
 
 **Ejemplo de parámetros de salida fallida:**
 
-```
+```json
 {
-      "status" : 500,
-      "description" :  "Ha fallado la conexión"
+    "status" : 500,
+    "description" :  "Ha fallado la conexión"
 }
 ```
 
@@ -1065,8 +1579,10 @@ Este microservicio fue creado bajo la necesidad de eliminar cursos que se encuen
 | :-         | :-     | :-            |
 
 **Ejemplo de body de entrada:**
-```
-{}
+```json
+{
+    
+}
 ```
 **Formato de salida:** JSON
 
@@ -1080,19 +1596,18 @@ Este microservicio fue creado bajo la necesidad de eliminar cursos que se encuen
 
 **Ejemplo de parámetros de salida exitosa:**
 
-```
+```json
 {
       "status" : 200,
       "course" : [
-                  {
+                    {
                         "code_course" : 0780,
                         "name_course" : "Software Avanzado",
                         "credit_course" : 8,
                         "pre_course" : ["0785"],
                         "optional" : 1
-                  }
-            ]
-
+                    }
+                ]
 }
 ```
 
@@ -1107,10 +1622,10 @@ Este microservicio fue creado bajo la necesidad de eliminar cursos que se encuen
 
 **Ejemplo de parámetros de salida fallida:**
 
-```
+```json
 {
-      "status" : 500,
-      "description" :  "Ha fallado la conexión"
+    "status" : 500,
+    "description" :  "Ha fallado la conexión"
 }
 ```
 
@@ -1151,14 +1666,14 @@ Este microservicio fue creado bajo la necesidad de poder asignar horarios para l
 
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
-      "code_course" : "0780",
-      "code_doce" : 4,
-      "section" : "N",
-      "hour_init" : "19:00",
-      "hour_finish" : "20:40",
-      "dates" : ["Lunes","Miercoles"]
+    "code_course" : "0780",
+    "code_doce" : 4,
+    "section" : "N",
+    "hour_init" : "19:00",
+    "hour_finish" : "20:40",
+    "dates" : ["Lunes","Miercoles"]
 }
 
 ```
@@ -1174,10 +1689,10 @@ Este microservicio fue creado bajo la necesidad de poder asignar horarios para l
 
 **Ejemplo de parámetros de salida exitosa:**
 
-```
+```json
 {
-      "status" : 200,
-      "descripcion" : "Se ha agregado el horario correctamente"
+    "status" : 200,
+    "descripcion" : "Se ha agregado el horario correctamente"
 }
 ```
 
@@ -1192,10 +1707,10 @@ Este microservicio fue creado bajo la necesidad de poder asignar horarios para l
 
 **Ejemplo de parámetros de salida fallida:**
 
-```
+```json
 {
-      "status" : 500,
-      "description" :  "Ha fallado la conexión"
+    "status" : 500,
+    "description" :  "Ha fallado la conexión"
 }
 ```
 
@@ -1230,10 +1745,10 @@ Este microservicio fue creado bajo la necesidad para poder remover y eliminar lo
 | section | String | Sección del curso |
 
 **Ejemplo de body de entrada:**
-```
+```json
 {
-      "code_course" : "0780",
-      "section" : "N"
+    "code_course" : "0780",
+    "section" : "N"
 }
 
 ```
@@ -1249,7 +1764,7 @@ Este microservicio fue creado bajo la necesidad para poder remover y eliminar lo
 
 **Ejemplo de parámetros de salida exitosa:**
 
-```
+```json
 {
     "status" : 200,
     "descripcion" : "Se ha eliminado el horario correctamente"
@@ -1267,7 +1782,7 @@ Este microservicio fue creado bajo la necesidad para poder remover y eliminar lo
 
 **Ejemplo de parámetros de salida fallida:**
 
-```
+```json
 {
     "status" : 500,
     "description" :  "Ha fallado la conexión"
@@ -1303,8 +1818,10 @@ Este microservicio fue creado bajo la necesidad de obtener el listado de horario
 | :-         | :-     | :-            |
 
 **Ejemplo de body de entrada:**
-```
-{}
+```json
+{
+
+}
 ```
 **Formato de salida:** JSON
 
@@ -1318,21 +1835,19 @@ Este microservicio fue creado bajo la necesidad de obtener el listado de horario
 
 **Ejemplo de parámetros de salida exitosa:**
 
-```
+```json
 {
     "status" : 200,
     "course" : [
-                  {
+                    {
                         "code_course" : "0780",
-	                  "code_doce" : 4,
-	                  "section" : "N",
-	                  "hour_init" : "19:00",
-	                  "hour_finish" : "20:40",
-	                  "dates" : ["Lunes","Miercoles"]
-                  }
-            ]
-
-
+	                    "code_doce" : 4,
+	                    "section" : "N",
+	                    "hour_init" : "19:00",
+	                    "hour_finish" : "20:40",
+	                    "dates" : ["Lunes","Miercoles"]
+                    }
+                ]
 }
 ```
 
@@ -1347,15 +1862,9 @@ Este microservicio fue creado bajo la necesidad de obtener el listado de horario
 
 **Ejemplo de parámetros de salida fallida:**
 
-```
+```json
 {
     "status" : 500,
     "description" :  "Ha fallado la conexión"
 }
 ```
-
-
-
-
-
-
